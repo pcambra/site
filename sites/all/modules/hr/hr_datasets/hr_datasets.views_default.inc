@@ -9,6 +9,7 @@
  */
 function hr_datasets_views_default_views() {
   $export = array();
+
   $view = new view();
   $view->name = 'hr_datasets';
   $view->description = '';
@@ -81,7 +82,7 @@ function hr_datasets_views_default_views() {
   $handler->display->display_options['sorts']['field_ds_date']['table'] = 'search_api_index_default_node_index';
   $handler->display->display_options['sorts']['field_ds_date']['field'] = 'field_ds_date';
   $handler->display->display_options['sorts']['field_ds_date']['order'] = 'DESC';
-  /* Contextual filter: Indexed Node: Groups audience */
+  /* Contextual filter: Indexed Node: Space(s) */
   $handler->display->display_options['arguments']['og_group_ref']['id'] = 'og_group_ref';
   $handler->display->display_options['arguments']['og_group_ref']['table'] = 'search_api_index_default_node_index';
   $handler->display->display_options['arguments']['og_group_ref']['field'] = 'og_group_ref';
@@ -278,7 +279,7 @@ function hr_datasets_views_default_views() {
   $handler->display->display_options['fields']['status']['label'] = 'Published';
   $handler->display->display_options['fields']['status']['link_to_entity'] = 0;
   $handler->display->display_options['fields']['status']['format_name'] = 1;
-  /* Field: Indexed Node: Geographical Location (Origin) */
+  /* Field: Indexed Node: Locations */
   $handler->display->display_options['fields']['field_locations']['id'] = 'field_locations';
   $handler->display->display_options['fields']['field_locations']['table'] = 'search_api_index_default_node_index';
   $handler->display->display_options['fields']['field_locations']['field'] = 'field_locations';
@@ -423,7 +424,7 @@ function hr_datasets_views_default_views() {
   $handler->display->display_options['fields']['status']['label'] = 'Published';
   $handler->display->display_options['fields']['status']['link_to_entity'] = 0;
   $handler->display->display_options['fields']['status']['format_name'] = 1;
-  /* Field: Indexed Node: Geographical Location (Origin) */
+  /* Field: Indexed Node: Locations */
   $handler->display->display_options['fields']['field_locations']['id'] = 'field_locations';
   $handler->display->display_options['fields']['field_locations']['table'] = 'search_api_index_default_node_index';
   $handler->display->display_options['fields']['field_locations']['field'] = 'field_locations';
@@ -532,6 +533,31 @@ function hr_datasets_views_default_views() {
   $handler->display->display_options['fields']['url']['label'] = 'Path';
   $handler->display->display_options['fields']['url']['display_as_link'] = FALSE;
   $handler->display->display_options['fields']['url']['link_to_entity'] = 0;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Indexed Node: Content type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'search_api_index_default_node_index';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'hr_dataset' => 'hr_dataset',
+  );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Search: Fulltext search */
+  $handler->display->display_options['filters']['search_api_views_fulltext']['id'] = 'search_api_views_fulltext';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['table'] = 'search_api_index_default_node_index';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['field'] = 'search_api_views_fulltext';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['group'] = 1;
+  $handler->display->display_options['filters']['search_api_views_fulltext']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator_id'] = 'search_api_views_fulltext_op';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['label'] = 'Search Datasets';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['operator'] = 'search_api_views_fulltext_op';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['identifier'] = 'search';
+  $handler->display->display_options['filters']['search_api_views_fulltext']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    30037204 => 0,
+  );
   $handler->display->display_options['path'] = 'node/%/datasets/csv-admin';
   $handler->display->display_options['displays'] = array(
     'master' => 'master',
@@ -653,7 +679,6 @@ function hr_datasets_views_default_views() {
     t('Node ID'),
     t('.'),
     t('Published'),
-    t('Geographical Location (Origin)'),
     t('Data Source(s)'),
     t('Data Guardian'),
     t('Dataset Types'),
